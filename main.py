@@ -9,6 +9,23 @@ print(
     "The implementation will be done with the use of the package AHPy 2.0 found at https://pypi.org/project/ahpy/"
 )
 
+# Saaty's random index vector for computing CI from CR, obtained from the ahpy sourcode
+ri_dict = {
+    3: 0.52,
+    4: 0.89,
+    5: 1.11,
+    6: 1.25,
+    7: 1.35,
+    8: 1.40,
+    9: 1.45,
+    10: 1.49,
+    11: 1.52,
+    12: 1.54,
+    13: 1.56,
+    14: 1.58,
+    15: 1.59,
+}
+
 # Input beers
 brands_labels = []
 beer = input(
@@ -59,9 +76,12 @@ while keep_going:
     consistency = criteria_ahpy.consistency_ratio
     if consistency <= 0.1:
         keep_going = False
+        print(
+            f"Well done, CR = {consistency:.2f}, CI = {consistency*ri_dict[criteria_ahpy._size]:.2f}"
+        )
     else:
         answer = input(
-            f"Your answers were not very consistent (with an inconsistency ratio of {consistency} > 0.1). To get the best results we recommend going through this exercise again. Do you agree to go through it again (y-yes, n-no): "
+            f"Your answers were not very consistent (with a CR = {consistency:.2f} > 0.1 and CI = {consistency*ri_dict[criteria_ahpy._size]:.2f}). To get the best results we recommend going through this exercise again. Do you agree to go through it again (y-yes, n-no): "
         )
         if answer != "y":
             keep_going = False
@@ -104,10 +124,13 @@ for criteria in criteria_labels:
             comparisons_ahpy.append(
                 ahpy.Compare(criteria, comp, precision=3, random_index="saaty")
             )
+            print(
+                f"Well done, CR = {consistency}, CI = {consistency*ri_dict[comparisons_ahpy[-1]._size]}"
+            )
         else:
             keep_going[1] = True
             answer = input(
-                f"Your answers were not very consistent for {criteria} (with an inconsistency ratio of {consistency} > 0.1). To get the best results we recommend going through this exercise for {criteria} again. Do you agree to go through it again (y-yes, n-no): "
+                f"Your answers were not very consistent for {criteria} (with a CR = {consistency} > 0.1 and CI = {consistency*ri_dict[comparisons_ahpy[-1]._size]}). To get the best results we recommend going through this exercise for {criteria} again. Do you agree to go through it again (y-yes, n-no): "
             )
             if answer != "y":
                 keep_going[0] = False
