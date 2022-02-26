@@ -129,8 +129,9 @@ for criteria in criteria_labels:
             )
         else:
             keep_going[1] = True
+            temp = ahpy.Compare(criteria, comp, precision=3, random_index="saaty")
             answer = input(
-                f"Your answers were not very consistent for {criteria} (with a CR = {consistency} > 0.1 and CI = {consistency*ri_dict[comparisons_ahpy[-1]._size]}). To get the best results we recommend going through this exercise for {criteria} again. Do you agree to go through it again (y-yes, n-no): "
+                f"Your answers were not very consistent for {criteria} (with a CR = {consistency} > 0.1 and CI = {consistency*ri_dict[temp._size]}). To get the best results we recommend going through this exercise for {criteria} again. Do you agree to go through it again (y-yes, n-no): "
             )
             if answer != "y":
                 keep_going[0] = False
