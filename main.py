@@ -124,9 +124,9 @@ for criteria in criteria_labels:
             comparisons_ahpy.append(
                 ahpy.Compare(criteria, comp, precision=3, random_index="saaty")
             )
-            print(
-                f"Well done, CR = {consistency}, CI = {consistency*ri_dict[comparisons_ahpy[-1]._size]}"
-            )
+            # print(
+            #    f"Well done, CR = {consistency}, CI = {consistency*ri_dict[comparisons_ahpy[-1]._size]}"
+            # )
         else:
             keep_going[1] = True
             temp = ahpy.Compare(criteria, comp, precision=3, random_index="saaty")
